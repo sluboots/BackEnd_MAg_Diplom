@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ current_type_disease.name }}</title>
+</head>
+<body>
+    <h1>Все показатели сердца всех пользователей</h1>
+    <h2>Тип болезни: {{ current_type_disease.name }}</h2>
+    <div>
+        <a href="{% url 'index' %}">Главная</a>
+        {% for disease in type_heart %}
+        <a href="/heart/{{ disease.pk }}/">{{ disease.name }}</a>
+        {% endfor %}
+    </div>
+    {% for heart in hearts %}
+        <div>
+            <h2>{{ heart.age }}</h2>
+            <p>{{ heart.sex }}</p>
+            <p>{{ heart.disease_type }}</p>
+        </div>
+    {% endfor %}
+</body>
+</html>

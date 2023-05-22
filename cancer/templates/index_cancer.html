@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+</head>
+<body>
+    <h1>Главная</h1>
+    <div>
+        <a href="{% url 'index' %}">Главная</a>
+        <a href="{% url 'add' %}">Добавить</a>
+    </div>
+    {% for cancer in cancers %}
+        <div>
+            <h2>{{ cancer.age }}</h2>
+            <p>{{ cancer.IUD_years }}</p>
+        </div>
+    {% endfor %}
+</body>
+</html>

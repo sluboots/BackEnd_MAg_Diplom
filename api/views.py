@@ -1,11 +1,18 @@
+import json
+
+from django.http import HttpResponse
 from django.shortcuts import render
+from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, parser_classes
 from rest_framework import generics
 from rest_framework.parsers import JSONParser, FormParser, MultiPartParser
+from rest_framework.viewsets import ModelViewSet
+from .serializers import BloodCellListSerializer
 
+from blood_cell.models import Blood_Cell
 from heart_disease.models import Heart
 from cancer.models import Cancer
 from api.serializers import HeartDiseaseListSerializer, CancerListSerializer, RegisterSerializer
@@ -97,5 +104,14 @@ class RegisterView(generics.CreateAPIView):
     permission_classes = (AllowAny,)
     parser_classes = [FormParser, MultiPartParser, JSONParser]
 
+class BloodCellView(ListAPIView):
+    queryset = Blood_Cell.objects.all()
+    serializer_class = BloodCellListSerializer
+    parser_classes = (MultiPartParser, FormParser)
+
+    def post(self, request, *args, **kwargs):
+        file = request.data['file']
+        image = Blood_Cell.objects.create(file=file)
+        return HttpResponse(json.dumps({'message': "Uploaded"}), status=200)
 
 # Create your views here.

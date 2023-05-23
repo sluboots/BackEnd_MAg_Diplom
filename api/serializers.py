@@ -5,6 +5,13 @@ from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 from cancer.models import Cancer
 from user.models import Profile
+from blood_cell.models import Blood_Cell
+
+
+class BloodCellListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Blood_Cell
+        fields = '__all__'
 
 class HeartDiseaseListSerializer(serializers.ModelSerializer):
     class Meta:
